@@ -1,0 +1,14 @@
+spring:
+  session:
+    store-type: none
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://10.1.8.71/boot?useUnicode=yes&characterEncoding=UTF-8&useSSL=false
+    username: root
+    password: newland
+security:
+  basic:
+    enabled: false
+server:
+  port: 8060
+
