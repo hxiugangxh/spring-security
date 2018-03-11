@@ -2,8 +2,11 @@ package com.hxg.controller;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.hxg.bean.User;
+import com.hxg.dao.UserDao;
+import com.hxg.service.UserService;
 import org.apache.commons.lang.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -21,6 +24,9 @@ import java.util.List;
 @RestController
 @RequestMapping("/user")
 public class UserController {
+
+    @Autowired
+    private UserDao userDao;
 
     @JsonView(User.UserSimpleView.class)
     @GetMapping
@@ -88,8 +94,10 @@ public class UserController {
         return user;
     }
 
-    public void delete() {
-
+    @DeleteMapping("/{id:\\d+}")
+    @ResponseBody
+    public void delete(@PathVariable("id") Integer id) {
+        userDao.delete(id);
     }
 
 }

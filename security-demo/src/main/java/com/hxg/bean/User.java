@@ -1,18 +1,22 @@
 package com.hxg.bean;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import com.hxg.validator.MyContraint;
 import lombok.Data;
+import lombok.Value;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.Past;
 import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-public class User implements Serializable  {
+@Table(name = "CM_USER")
+public class User {
 
     public interface UserSimpleView {};
     public interface UserDetailView extends UserSimpleView {};
@@ -24,7 +28,7 @@ public class User implements Serializable  {
 
     private String pwd;
 
-    @NotBlank(message = "年龄不能为空")
+    @MyContraint(message = "年龄不能为空")
     private String age;
 
     @Past(message = "日期不能为未来")
@@ -78,5 +82,16 @@ public class User implements Serializable  {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", pwd='" + pwd + '\'' +
+                ", age='" + age + '\'' +
+                ", date=" + date +
+                '}';
     }
 }

@@ -1,5 +1,10 @@
 package com.hxg;
 
+import com.alibaba.fastjson.JSON;
+import com.hxg.bean.User;
+import com.hxg.dao.UserDao;
+import org.apache.commons.lang.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -69,7 +74,9 @@ public class UserControllerTests {
     public void whenCreateSuccess() throws Exception {
         String url = "/user";
         String date = new Date().getTime() + "";
+
         String content = "{\"username\":\"tom\",\"pwd\":\"123456\",\"date\":\"" + date + "\"}";
+
         String contentAsString = mockMvc.perform(MockMvcRequestBuilders.post(url).contentType(MediaType
                 .APPLICATION_JSON_UTF8)
                 .content(content))
@@ -93,7 +100,19 @@ public class UserControllerTests {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(1))
                 .andReturn().getResponse().getContentAsString();
 
+        System.out.println("contentAsString = " + contentAsString);
+    }
+
+    @Test
+    public void whenDeleteSuccess() throws Exception {
+        String url = "/user/1";
+        String contentAsString = mockMvc.perform(MockMvcRequestBuilders.delete(url).contentType(MediaType
+                .APPLICATION_JSON_UTF8))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andReturn().getResponse().getContentAsString();
+
         System.out.println(contentAsString);
+
     }
 
 }
