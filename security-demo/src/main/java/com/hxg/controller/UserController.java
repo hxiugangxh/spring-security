@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import javax.xml.ws.RespectBinding;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -98,6 +99,14 @@ public class UserController {
     @ResponseBody
     public void delete(@PathVariable("id") Integer id) {
         userDao.delete(id);
+    }
+
+    @GetMapping("/test")
+    @ResponseBody
+    public List<User> test() {
+        List<User> userList = userDao.findByIdIn(Arrays.asList(new Integer[] {1, 2, 3, 4}));
+
+        return userList;
     }
 
 }

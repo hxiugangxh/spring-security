@@ -2,6 +2,7 @@ package com.hxg.aspect;
 
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -39,6 +40,17 @@ public class HttpAspect {
 
         //参数
         log.info("args={}", joinPoint.getArgs());
+    }
+
+    @Around("log()")
+    public Object doAround(ProceedingJoinPoint joinPoint) throws Throwable {
+        long start = System.currentTimeMillis();
+        Object result = joinPoint.proceed();
+        long end = System.currentTimeMillis();
+
+        log.info("请求耗时记录：" + joinPoint.getSignature().getName() + ": " + (end - start));
+
+        return result;
     }
 
     @After("log()")

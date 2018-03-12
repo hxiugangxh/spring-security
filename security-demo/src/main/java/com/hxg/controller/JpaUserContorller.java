@@ -13,11 +13,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.jws.soap.SOAPBinding;
+import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -76,5 +78,12 @@ public class JpaUserContorller {
         return string;
     }
 
+    @GetMapping("/test")
+    @ResponseBody
+    public List<User> test() {
+        List<User> userList = userDao.findByIdIn(Arrays.asList(new Integer[] {1, 2, 3, 4}));
+
+        return userList;
+    }
 
 }
