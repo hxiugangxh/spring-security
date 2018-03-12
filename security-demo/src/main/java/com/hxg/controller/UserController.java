@@ -101,12 +101,17 @@ public class UserController {
         userDao.delete(id);
     }
 
-    @GetMapping("/test")
+    @GetMapping("/userByIdIn")
     @ResponseBody
-    public List<User> test() {
+    public List<User> userByIdIn() {
         List<User> userList = userDao.findByIdIn(Arrays.asList(new Integer[] {1, 2, 3, 4}));
 
         return userList;
+    }
+
+    @GetMapping("/test")
+    public String test(@RequestParam("name") String name) {
+        return "123";
     }
 
 }
