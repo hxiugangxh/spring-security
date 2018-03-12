@@ -37,8 +37,19 @@ public class FileController {
     @ResponseBody
     public String upload(@RequestParam("file") MultipartFile file, HttpServletRequest request) throws IOException {
 
-        File localFile = new File("D://tmp//我定义的.txt");
+        String toPath = "D://tmp//";
+        String toName = "我定义的.txt";
 
+        File pathFile = new File(toPath);
+        if (!pathFile.exists()) {
+            pathFile.mkdirs();
+        }
+
+        File localFile = new File(toPath + toName);
+
+        if (localFile.exists()) {
+            localFile.delete();
+        }
         localFile.createNewFile();
         file.transferTo(localFile);
 
