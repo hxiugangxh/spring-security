@@ -1,6 +1,8 @@
 package com.hxg.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.hxg.aspect.exception.ResultEnum;
+import com.hxg.aspect.exception.UserException;
 import com.hxg.bean.User;
 import com.hxg.dao.UserDao;
 import com.hxg.service.UserService;
@@ -27,6 +29,11 @@ public class JpaUserContorller {
 
     @Autowired
     private UserDao userDao;
+
+    @RequestMapping("/exceptionHandler")
+    public String exceptionHandler() {
+        throw new UserException(ResultEnum.TEST_EXCEPTION);
+    }
 
     @RequestMapping("/save")
     @ResponseBody

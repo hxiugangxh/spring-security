@@ -15,7 +15,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-@Table(name = "CM_USER")
+@Table(name = "cm_user")
 public class User {
 
     public interface UserSimpleView {};

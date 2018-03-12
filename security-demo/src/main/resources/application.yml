@@ -5,7 +5,7 @@ spring:
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://localhost/security?useUnicode=yes&characterEncoding=UTF-8&useSSL=false
     username: root
-    password: 123456
+    password:
 security:
   basic:
     enabled: false
