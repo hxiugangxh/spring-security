@@ -108,10 +108,4 @@ public class UserController {
 
         return userList;
     }
-
-    @GetMapping("/test")
-    public String test(@RequestParam("name") String name) {
-        return "123";
-    }
-
 }
