@@ -10,5 +10,13 @@
   <br/>
   <input type="submit" value="提交" />
 </form>
+
+<input type="button" value="下载" onclick="download()" />
+<script>
+  function download() {
+    var url = "/download";
+    window.location.href = url;
+  }
+</script>
 </body>
 </html>

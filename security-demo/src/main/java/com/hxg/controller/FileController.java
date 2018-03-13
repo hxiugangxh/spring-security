@@ -2,6 +2,7 @@ package com.hxg.controller;
 
 import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +14,7 @@ import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.lang.management.LockInfo;
 import java.util.ArrayList;
@@ -60,7 +62,24 @@ public class FileController {
 
         System.out.println(read(tempFile));
 
-        return file.getName();
+        return file.getOriginalFilename();
+    }
+
+    @RequestMapping("/download")
+    public void download(HttpServletRequest request, HttpServletResponse response) {
+        try (
+                InputStream inputStream = new FileInputStream(new File("D:\\tmp\\我定义的.txt"));
+                OutputStream outputStream = response.getOutputStream();
+        ) {
+            String fileName = new String("中文".getBytes("GB2312"), "ISO-8859-1");
+            response.setContentType("application/x-download");
+            response.addHeader("Content-Disposition", "attachment;filename="
+                    + fileName + ".txt");
+            IOUtils.copy(inputStream, outputStream);
+            outputStream.flush();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public static List<String> read(File path) {
