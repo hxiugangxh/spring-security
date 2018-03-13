@@ -31,10 +31,6 @@ public class FileController {
         return "file";
     }
 
-    public static void main(String[] args) throws Exception {
-        System.out.println(read(new File("D://记录.txt")));
-    }
-
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
     @ResponseBody
     public String upload(@RequestParam("file") MultipartFile file, HttpServletRequest request) throws IOException {
@@ -60,7 +56,7 @@ public class FileController {
         File tempFile = new File(path);
         FileUtils.copyInputStreamToFile(file.getInputStream(), tempFile);
 
-        System.out.println(read(tempFile));
+        System.out.println(FileUtils.readLines(tempFile, "UTF-8"));
 
         return file.getOriginalFilename();
     }
@@ -80,31 +76,6 @@ public class FileController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    public static List<String> read(File path) {
-        List<String> list = new ArrayList<String>();
-        BufferedReader br = null;
-        try {
-            br = new BufferedReader(new FileReader(path));
-            String str = br.readLine();
-            while (str != null) {
-                list.add(str);
-                str = br.readLine();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if (br != null) {
-                try {
-                    br.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-
-        return list;
     }
 
 }
