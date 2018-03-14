@@ -6,9 +6,9 @@ spring:
     url: jdbc:mysql://localhost/security?useUnicode=yes&characterEncoding=UTF-8&useSSL=false
     username: root
     password:
-security:
-  basic:
-    enabled: false
+#security:
+#  basic:
+#    enabled: false
 server:
   port: 8080
 

@@ -25,19 +25,9 @@ public class SecurityController {
     @RequestMapping("/index")
     public String login(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-        SavedRequest savedRequest = requestCache.getRequest(request, response);
-
-        if (null != savedRequest) {
-            String targetUrl = savedRequest.getRedirectUrl();
-            log.info("引发跳转的请求是: " + targetUrl);
-            if (StringUtils.endsWithIgnoreCase(targetUrl, ".html")) {
-                redirectStrategy.sendRedirect(request, response, "");
-            }
-        }
-
         log.info("securty index");
 
-        return "redirect:index.html";
+        return "redirect:/login/login.html";
     }
 
     @RequestMapping("/form")
