@@ -51,9 +51,7 @@ public class FileController {
         localFile.createNewFile();
         file.transferTo(localFile);
 
-        String filePath = request.getSession().getServletContext().getRealPath("/") + "upload/";
-        String path = filePath + file.getOriginalFilename();
-        File tempFile = new File(path);
+        File tempFile = new File(localFile.getAbsolutePath());
         FileUtils.copyInputStreamToFile(file.getInputStream(), tempFile);
 
         System.out.println(FileUtils.readLines(tempFile, "UTF-8"));
