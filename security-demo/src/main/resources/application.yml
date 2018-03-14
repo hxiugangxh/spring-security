@@ -11,4 +11,7 @@ spring:
 #    enabled: false
 server:
   port: 8080
-
+hxg:
+  security:
+    browserProperties:
+      loginPage: /demo-login.html

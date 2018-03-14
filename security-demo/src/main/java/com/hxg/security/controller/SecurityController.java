@@ -18,16 +18,12 @@ import javax.servlet.http.HttpServletResponse;
 @RequestMapping("/security")
 public class SecurityController {
 
-    private RequestCache requestCache = new HttpSessionRequestCache();
-
-    private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
-
     @RequestMapping("/index")
     public String login(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
         log.info("securty index");
 
-        return "redirect:/login/login.html";
+        return "security/index";
     }
 
     @RequestMapping("/form")
