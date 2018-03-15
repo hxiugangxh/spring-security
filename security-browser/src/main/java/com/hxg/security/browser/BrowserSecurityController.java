@@ -37,8 +37,6 @@ public class BrowserSecurityController {
 
         SavedRequest savedRequest = requestCache.getRequest(request, response);
 
-        System.out.println(securityProperties.getBrowserProperties());
-
         if (null != savedRequest) {
             String targetUrl = savedRequest.getRedirectUrl();
             if (StringUtils.endsWithIgnoreCase(targetUrl, ".html")) {

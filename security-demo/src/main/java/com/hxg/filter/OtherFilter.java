@@ -16,7 +16,7 @@ public class OtherFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        System.out.println("other filter is work");
+//        System.out.println("other filter is work");
         filterChain.doFilter(servletRequest, servletResponse);
     }
 

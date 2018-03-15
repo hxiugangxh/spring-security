@@ -15,3 +15,4 @@ hxg:
   security:
     browserProperties:
       loginPage: /demo-login.html
+      loginType: REDIRECT

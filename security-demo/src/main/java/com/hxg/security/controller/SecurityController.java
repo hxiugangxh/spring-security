@@ -29,7 +29,7 @@ public class SecurityController {
     @RequestMapping("/form")
     public String form() {
 
-        log.info("登录成功");
+        log.info("登录成功--form");
 
         return "security/form";
     }

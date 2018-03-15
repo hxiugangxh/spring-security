@@ -13,16 +13,16 @@ public class TimeInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object
             handler) throws Exception {
-        System.out.println("preHandle");
+//        System.out.println("preHandle");
 
         HandlerMethod handlerMethod = (HandlerMethod) handler;
         String className = handlerMethod.getBean().getClass().getName();
         String methodName = handlerMethod.getMethod().getName();
 
-        System.out.println("请求类: " + className + ",请求方法: " + methodName);
+//        System.out.println("请求类: " + className + ",请求方法: " + methodName);
 
         long startTime = System.currentTimeMillis();
-        System.out.println("传递starTime = " + startTime);
+//        System.out.println("传递starTime = " + startTime);
         httpServletRequest.setAttribute("startTime", startTime);
 
         return true;
@@ -31,11 +31,11 @@ public class TimeInterceptor implements HandlerInterceptor {
     @Override
     public void postHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o,
                            ModelAndView modelAndView) throws Exception {
-        System.out.println("postHandle");
+//        System.out.println("postHandle");
 
         long startTime = (long) httpServletRequest.getAttribute("startTime");
 
-        System.out.println("接收到startTime = " + startTime);
+//        System.out.println("接收到startTime = " + startTime);
     }
 
     @Override

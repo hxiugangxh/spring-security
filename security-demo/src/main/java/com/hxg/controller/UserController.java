@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
@@ -28,6 +30,12 @@ public class UserController {
 
     @Autowired
     private UserDao userDao;
+
+    @GetMapping("/me")
+    public Object me(Authentication authentication) {
+
+        return authentication;
+    }
 
     @JsonView(User.UserSimpleView.class)
     @GetMapping

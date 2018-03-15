@@ -15,7 +15,7 @@ public class TimeFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        System.out.println("time filter is work");
+//        System.out.println("time filter is work");
         filterChain.doFilter(servletRequest, servletResponse);
     }
 
