@@ -1,6 +1,7 @@
 package com.hxg.security.browser.authentication;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.hxg.security.browser.SimpleResponse;
 import com.hxg.security.properties.LoginType;
 import com.hxg.security.properties.SecurityProperties;
 import lombok.extern.slf4j.Slf4j;
@@ -16,7 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@Component
+@Component("hxgAuthenticaTionFailureHandler")
 @Slf4j
 public class HxgAuthenticaTionFailureHandler extends SimpleUrlAuthenticationFailureHandler {
 
@@ -36,7 +37,9 @@ public class HxgAuthenticaTionFailureHandler extends SimpleUrlAuthenticationFail
         if (LoginType.JSON.equals(securityProperties.getBrowserProperties().getLoginType())) {
             httpServletResponse.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
             httpServletResponse.setContentType("application/json;charset=utf-8");
-            httpServletResponse.getWriter().write(objectMaper.writeValueAsString(e));
+            System.out.println("我看看 = " + objectMaper.writeValueAsString(e));
+            httpServletResponse.getWriter().write(objectMaper.writeValueAsString(new
+                    SimpleResponse(e.getMessage())));
         } else {
             super.onAuthenticationFailure(httpServletRequest, httpServletResponse, e);
         }

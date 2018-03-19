@@ -7,9 +7,12 @@
 <body>
 <div style="margin: 30px auto 0 auto;width: 400px;text-align: center">
   <h1>登录页面</h1>
-  <form method="post" action="/security/login">
+  <form method="post" action="/security/form">
     用户：<input type="text" name="username" /> <br /><br />
     密码：<input type="text" name="password" /> <br /><br />
+    图形验证码:
+      <input type="text" name="imageCode">
+      <img src="/code/image?width=200"> <br /><br />
       <input type="submit" value="提交" />
   </form>
 </div>

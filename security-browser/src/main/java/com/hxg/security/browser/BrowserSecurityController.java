@@ -36,9 +36,11 @@ public class BrowserSecurityController {
             throws Exception {
 
         SavedRequest savedRequest = requestCache.getRequest(request, response);
+        System.out.println("savedRequest = " + savedRequest);
 
         if (null != savedRequest) {
             String targetUrl = savedRequest.getRedirectUrl();
+            log.info("引发跳转的请求是:" + targetUrl);
             if (StringUtils.endsWithIgnoreCase(targetUrl, ".html")) {
                 redirectStrategy.sendRedirect(request, response,
                         securityProperties.getBrowserProperties().getLoginPage());
