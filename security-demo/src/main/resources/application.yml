@@ -13,6 +13,12 @@ server:
   port: 8080
 hxg:
   security:
-    browserProperties:
+    browser:
       loginPage: /demo-login.html
       loginType: JSON
+    validateCode:
+      image:
+        length: 4
+        url: /user/*
+# 乱码处理
+spring.http.encoding.force: true

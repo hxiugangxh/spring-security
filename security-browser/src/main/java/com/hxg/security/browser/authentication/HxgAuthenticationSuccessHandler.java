@@ -35,7 +35,7 @@ public class HxgAuthenticationSuccessHandler extends SavedRequestAwareAuthentica
             ServletException {
         log.info("登录成功");
 
-        if (LoginType.JSON.equals(securityProperties.getBrowserProperties().getLoginType())) {
+        if (LoginType.JSON.equals(securityProperties.getBrowser().getLoginType())) {
             httpServletResponse.setContentType("application/json;charset=utf-8");
             httpServletResponse.getWriter().write(objectMaper.writeValueAsString(authentication));
         } else {

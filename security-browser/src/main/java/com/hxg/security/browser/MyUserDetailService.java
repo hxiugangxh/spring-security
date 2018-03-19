@@ -16,11 +16,6 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class MyUserDetailService implements UserDetailsService {
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return  new BCryptPasswordEncoder();
-    }
-
     @Autowired
     private PasswordEncoder passwordEncoder;
 

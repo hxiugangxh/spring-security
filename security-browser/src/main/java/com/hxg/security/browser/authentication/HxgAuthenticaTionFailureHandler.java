@@ -34,10 +34,9 @@ public class HxgAuthenticaTionFailureHandler extends SimpleUrlAuthenticationFail
             ServletException {
         log.info("登录失败");
 
-        if (LoginType.JSON.equals(securityProperties.getBrowserProperties().getLoginType())) {
+        if (LoginType.JSON.equals(securityProperties.getBrowser().getLoginType())) {
             httpServletResponse.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
             httpServletResponse.setContentType("application/json;charset=utf-8");
-            System.out.println("我看看 = " + objectMaper.writeValueAsString(e));
             httpServletResponse.getWriter().write(objectMaper.writeValueAsString(new
                     SimpleResponse(e.getMessage())));
         } else {

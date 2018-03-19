@@ -10,6 +10,8 @@ import org.springframework.context.annotation.PropertySource;
 @Data
 public class SecurityProperties {
 
-    private BrowserProperties browserProperties = new BrowserProperties();
+    private BrowserProperties browser = new BrowserProperties();
+
+    private ValidateCodeProperties validateCode = new ValidateCodeProperties();
 
 }
