@@ -33,8 +33,8 @@ public class SmsCodeAuthenticationSecurityConfig extends
     @Autowired
     private UserDetailsService userDetailsService;
 
-    @Autowired
-    private PersistentTokenRepository persistentTokenRepository;
+    /*@Autowired
+    private PersistentTokenRepository persistentTokenRepository;*/
 
     /* (non-Javadoc)
      * @see org.springframework.security.config.annotation.SecurityConfigurerAdapter#configure
@@ -51,9 +51,10 @@ public class SmsCodeAuthenticationSecurityConfig extends
         smsCodeAuthenticationFilter.setAuthenticationFailureHandler
 				(imoocAuthenticationFailureHandler);
         String key = UUID.randomUUID().toString();
-        smsCodeAuthenticationFilter.setRememberMeServices(new
+        // 短信不要记住我
+        /*smsCodeAuthenticationFilter.setRememberMeServices(new
 				PersistentTokenBasedRememberMeServices(key, userDetailsService,
-				persistentTokenRepository));
+				persistentTokenRepository));*/
 
         SmsCodeAuthenticationProvider smsCodeAuthenticationProvider = new
 				SmsCodeAuthenticationProvider();
