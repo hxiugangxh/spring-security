@@ -3,7 +3,7 @@ spring:
     store-type: none
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost/security?useUnicode=yes&characterEncoding=UTF-8&useSSL=false
+    url: jdbc:mysql://localhost/hxg?useUnicode=yes&characterEncoding=UTF-8&useSSL=false
     username: root
     password:
 #security:
@@ -11,14 +11,13 @@ spring:
 #    enabled: false
 server:
   port: 8080
-hxg:
+imooc:
   security:
     browser:
-      loginPage: /demo-login.html
-      loginType: JSON
-    validateCode:
-      image:
-        length: 4
-        url: /user/*
+      signInResponseType: REDIRECT
+      singInSuccessUrl: /manage.html
+      signOutUrl: /demo-logout.html
+      signUpUrl: /demo-signUp.html
+      signInPage: /demo-signIn.html
 # 乱码处理
 spring.http.encoding.force: true

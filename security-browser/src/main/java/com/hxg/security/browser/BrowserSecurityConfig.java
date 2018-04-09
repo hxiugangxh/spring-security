@@ -1,96 +1,108 @@
 package com.hxg.security.browser;
 
-import com.hxg.security.browser.authentication.HxgAuthenticaTionFailureHandler;
-import com.hxg.security.browser.authentication.HxgAuthenticationSuccessHandler;
-import com.hxg.security.properties.SecurityProperties;
-import com.hxg.security.validate.core.ValidateCodeFilter;
+import com.hxg.security.core.authentication.FormAuthenticationConfig;
+import com.hxg.security.core.authentication.mobile.SmsCodeAuthenticationSecurityConfig;
+import com.hxg.security.core.authorize.AuthorizeConfigManager;
+import com.hxg.security.core.properties.SecurityProperties;
+import com.hxg.security.core.validate.core.ValidateCodeSecurityConfig;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration
         .WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
+import org.springframework.security.web.session.InvalidSessionStrategy;
+import org.springframework.security.web.session.SessionInformationExpiredStrategy;
+import org.springframework.social.security.SpringSocialConfigurer;
 
 import javax.sql.DataSource;
 
+/**
+ * 浏览器环境下安全配置主类
+ *
+ */
 @Configuration
 public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
-
-    @SuppressWarnings("SpringJavaAutowiringInspection")
-    @Autowired
-    private DataSource dataSource;
 
     @Autowired
     private SecurityProperties securityProperties;
 
     @Autowired
-    private HxgAuthenticationSuccessHandler hxgAuthenticationSuccessHandler;
-
-    @Autowired
-    private HxgAuthenticaTionFailureHandler hxgAuthenticaTionFailureHandler;
+    private DataSource dataSource;
 
     @Autowired
     private UserDetailsService userDetailsService;
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+    @Autowired
+    private SmsCodeAuthenticationSecurityConfig smsCodeAuthenticationSecurityConfig;
 
-    @Bean
-    public PersistentTokenRepository persistentTokenRepository() {
-        JdbcTokenRepositoryImpl tokenRepository = new JdbcTokenRepositoryImpl();
+    @Autowired
+    private ValidateCodeSecurityConfig validateCodeSecurityConfig;
 
-        tokenRepository.setDataSource(dataSource);
-        // 没有表则设置下，或者去源码里面取 CREATE_TABLE_SQL 的SQL
-//        tokenRepository.setCreateTableOnStartup(true);
+    @Autowired
+    private SessionInformationExpiredStrategy sessionInformationExpiredStrategy;
 
-        return tokenRepository;
-    }
+    @Autowired
+    private InvalidSessionStrategy invalidSessionStrategy;
+
+    @Autowired
+    private LogoutSuccessHandler logoutSuccessHandler;
+
+    @Autowired
+    private AuthorizeConfigManager authorizeConfigManager;
+
+    @Autowired
+    private FormAuthenticationConfig formAuthenticationConfig;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        // 必须注解掉，否则httpBasic无法生效
-//        super.configure(http);
 
-        ValidateCodeFilter validateCodeFilter = new ValidateCodeFilter();
-        validateCodeFilter.setAuthenticationFailureHandler(hxgAuthenticaTionFailureHandler);
-        validateCodeFilter.setSecurityProperties(securityProperties);
-        validateCodeFilter.afterPropertiesSet();
+        formAuthenticationConfig.configure(http);
 
-        /*http.httpBasic()*/
-        http.addFilterBefore(validateCodeFilter, UsernamePasswordAuthenticationFilter.class)
-                .formLogin()
-                .loginPage("/authentication/require")
-                .loginProcessingUrl("/security/form")
-                .successHandler(hxgAuthenticationSuccessHandler)
-                //                .defaultSuccessUrl("/security/form")
-                .failureHandler(hxgAuthenticaTionFailureHandler)
+        http.apply(validateCodeSecurityConfig)
                 .and()
+                .apply(smsCodeAuthenticationSecurityConfig)
+                .and()
+                //记住我配置，如果想在'记住我'登录时记录日志，可以注册一个InteractiveAuthenticationSuccessEvent事件的监听器
                 .rememberMe()
                 .tokenRepository(persistentTokenRepository())
                 .tokenValiditySeconds(securityProperties.getBrowser().getRememberMeSeconds())
                 .userDetailsService(userDetailsService)
                 .and()
-                // 授权的请求路径
-                .authorizeRequests()
-                .antMatchers("/authentication/require",
-                        securityProperties.getBrowser().getLoginPage(),
-                        "/code/image").permitAll()
-                // 所有请求
-                .anyRequest()
-                // 都需要身份验证
-                .authenticated()
+                .sessionManagement()
+                .invalidSessionStrategy(invalidSessionStrategy)
+                .maximumSessions(securityProperties.getBrowser().getSession().getMaximumSessions())
+                .maxSessionsPreventsLogin(securityProperties.getBrowser().getSession()
+                        .isMaxSessionsPreventsLogin())
+                .expiredSessionStrategy(sessionInformationExpiredStrategy)
                 .and()
-                // 跨栈请求认证
+                .and()
+                .logout()
+                .logoutUrl("/signOut")
+                .logoutSuccessHandler(logoutSuccessHandler)
+                .deleteCookies("JSESSIONID")
+                .and()
                 .csrf().disable();
+
+        authorizeConfigManager.config(http.authorizeRequests());
+
     }
+
+    /**
+     * 记住我功能的token存取器配置
+     *
+     * @return
+     */
+    @Bean
+    public PersistentTokenRepository persistentTokenRepository() {
+        JdbcTokenRepositoryImpl tokenRepository = new JdbcTokenRepositoryImpl();
+        tokenRepository.setDataSource(dataSource);
+//		tokenRepository.setCreateTableOnStartup(true);
+        return tokenRepository;
+    }
+
 }
