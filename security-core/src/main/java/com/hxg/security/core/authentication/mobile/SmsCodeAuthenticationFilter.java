@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.hxg.security.core.authentication.mobile;
 
 import com.hxg.security.core.properties.SecurityConstants;
@@ -17,7 +14,6 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * 短信登录过滤器
  *
- * @author zhailiang
  */
 public class SmsCodeAuthenticationFilter extends AbstractAuthenticationProcessingFilter {
     // ~ Static fields/initializers

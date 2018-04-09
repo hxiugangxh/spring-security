@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.hxg.security.core.authorize;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +11,6 @@ import java.util.List;
 /**
  * 默认的授权配置管理器
  * 
- * @author zhailiang
- *
  */
 @Component
 public class ImoocAuthorizeConfigManager implements AuthorizeConfigManager {

@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.hxg.security.core.authorize;
 
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -12,7 +9,6 @@ import org.springframework.security.config.annotation.web.configurers.Expression
  * 
  * 用于收集系统中所有 AuthorizeConfigProvider 并加载其配置
  * 
- * @author zhailiang
  *
  */
 public interface AuthorizeConfigManager {

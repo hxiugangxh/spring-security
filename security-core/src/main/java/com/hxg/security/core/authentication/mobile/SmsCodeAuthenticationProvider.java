@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.hxg.security.core.authentication.mobile;
 
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -15,7 +12,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
  * 
  * 由于短信验证码的验证在过滤器里已完成，这里直接读取用户信息即可。
  * 
- * @author zhailiang
  *
  */
 public class SmsCodeAuthenticationProvider implements AuthenticationProvider {

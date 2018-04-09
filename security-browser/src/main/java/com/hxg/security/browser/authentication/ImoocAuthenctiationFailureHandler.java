@@ -20,8 +20,6 @@ import java.io.IOException;
 /**
  * 浏览器环境下登录失败的处理器
  * 
- * @author zhailiang
- *
  */
 @Component("imoocAuthenctiationFailureHandler")
 public class ImoocAuthenctiationFailureHandler extends SimpleUrlAuthenticationFailureHandler {

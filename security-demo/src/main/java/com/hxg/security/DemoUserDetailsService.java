@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.hxg.security;
 
 import org.slf4j.Logger;
@@ -18,9 +15,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 
-/**
- * @author zhailiang
- */
 @Component
 @Transactional
 public class DemoUserDetailsService implements UserDetailsService, SocialUserDetailsService {

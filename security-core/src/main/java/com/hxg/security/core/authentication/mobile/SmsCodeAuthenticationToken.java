@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.hxg.security.core.authentication.mobile;
 
 import org.springframework.security.authentication.AbstractAuthenticationToken;
@@ -12,7 +9,6 @@ import java.util.Collection;
 /**
  * 短信登录验证信息封装类
  * 
- * @author zhailiang
  *
  */
 public class SmsCodeAuthenticationToken extends AbstractAuthenticationToken {

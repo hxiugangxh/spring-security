@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.hxg.security.core.authentication.mobile;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +19,6 @@ import java.util.UUID;
 /**
  * 短信登录配置
  *
- * @author zhailiang
  */
 @Component
 public class SmsCodeAuthenticationSecurityConfig extends

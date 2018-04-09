@@ -23,8 +23,6 @@ import java.io.IOException;
 
 /**
  * 浏览器环境下与安全相关的服务
- * 
- * @author zhailiang
  *
  */
 @RestController

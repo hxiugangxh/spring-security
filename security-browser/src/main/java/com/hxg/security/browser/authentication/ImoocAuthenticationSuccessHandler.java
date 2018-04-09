@@ -23,7 +23,6 @@ import java.io.IOException;
 /**
  * 浏览器环境下登录成功的处理器
  * 
- * @author zhailiang
  */
 @Component("imoocAuthenticationSuccessHandler")
 public class ImoocAuthenticationSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler {

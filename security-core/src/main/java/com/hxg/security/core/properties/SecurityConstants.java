@@ -1,12 +1,7 @@
-/**
- * 
- */
 package com.hxg.security.core.properties;
 
-/**
- * @author zhailiang
- *
- */
+import lombok.Data;
+
 public interface SecurityConstants {
 	
 	/**

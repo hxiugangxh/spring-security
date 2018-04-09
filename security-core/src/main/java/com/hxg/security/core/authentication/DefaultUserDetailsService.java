@@ -12,8 +12,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
  * 
  * 不做任何处理，只在控制台打印一句日志，然后抛出异常，提醒业务系统自己配置 UserDetailsService。
  * 
- * @author zhailiang
- *
  */
 public class DefaultUserDetailsService implements UserDetailsService {
 
