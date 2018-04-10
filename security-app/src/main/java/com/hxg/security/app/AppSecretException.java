@@ -1,12 +1,5 @@
-/**
- * 
- */
 package com.hxg.security.app;
 
-/**
- * @author zhailiang
- *
- */
 public class AppSecretException extends RuntimeException {
 
 	/**

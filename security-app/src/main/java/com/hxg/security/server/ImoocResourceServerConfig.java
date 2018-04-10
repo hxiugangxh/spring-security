@@ -35,8 +35,6 @@ public class ImoocResourceServerConfig extends ResourceServerConfigurerAdapter {
     @Autowired
     private ValidateCodeSecurityConfig validateCodeSecurityConfig;
 
-    @Autowired
-    private SpringSocialConfigurer imoocSocialSecurityConfig;
 
     @Autowired
     private AuthorizeConfigManager authorizeConfigManager;
@@ -52,8 +50,6 @@ public class ImoocResourceServerConfig extends ResourceServerConfigurerAdapter {
         http.apply(validateCodeSecurityConfig)
                 .and()
                 .apply(smsCodeAuthenticationSecurityConfig)
-                .and()
-                .apply(imoocSocialSecurityConfig)
                 .and()
                 .csrf().disable();
 

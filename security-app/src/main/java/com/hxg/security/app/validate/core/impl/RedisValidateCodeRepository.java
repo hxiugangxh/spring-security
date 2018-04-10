@@ -4,10 +4,6 @@ import com.hxg.security.core.validate.core.ValidateCode;
 import com.hxg.security.core.validate.core.ValidateCodeException;
 import com.hxg.security.core.validate.core.ValidateCodeRepository;
 import com.hxg.security.core.validate.core.ValidateCodeType;
-import com.imooc.security.core.validate.code.ValidateCode;
-import com.imooc.security.core.validate.code.ValidateCodeException;
-import com.imooc.security.core.validate.code.ValidateCodeRepository;
-import com.imooc.security.core.validate.code.ValidateCodeType;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -19,6 +15,8 @@ import java.util.concurrent.TimeUnit;
 /**
  * 基于redis的验证码存取器，避免由于没有session导致无法存取验证码的问题
  * 
+ * @author zhailiang
+ *
  */
 @Component
 public class RedisValidateCodeRepository implements ValidateCodeRepository {
