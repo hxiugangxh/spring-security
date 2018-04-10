@@ -22,7 +22,12 @@ imooc:
       signOutUrl: /demo-logout.html
       signUpUrl: /demo-signUp.html
       signInPage: /demo-signIn.html
-    oauth2.clients[0].clientId: hxg
-    oauth2.clients[0].clientSecret: hxg
+    oauth2:
+      clients[0].clientId: imooc
+      clients[0].clientSecret: imoocsecret
+      tokenStore: jwt
+      jwtSigningKey: imooc
 # 乱码处理
 spring.http.encoding.force: true
+logging:
+  level: debug

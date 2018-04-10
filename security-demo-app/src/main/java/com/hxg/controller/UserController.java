@@ -3,12 +3,18 @@ package com.hxg.controller;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.hxg.bean.User;
 import com.hxg.dao.UserDao;
+import com.hxg.security.core.properties.SecurityProperties;
 import com.hxg.service.UserService;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -17,7 +23,9 @@ import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import javax.validation.constraints.Size;
 import javax.xml.ws.RespectBinding;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -26,13 +34,33 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/user")
+@Slf4j
 public class UserController {
 
     @Autowired
     private UserDao userDao;
 
+    @Autowired
+    private SecurityProperties securityProperties;
+
+    @Autowired
+    private StringRedisTemplate stringRedisTemplate;
+
     @GetMapping("/me")
-    public Object me(Authentication authentication) {
+    public Object me(Authentication authentication, HttpServletRequest request) throws Exception {
+
+        log.info("获取用户信息-2");
+        log.info(securityProperties.getOauth2().getJwtSigningKey());
+        stringRedisTemplate.opsForValue().set("redis", "获取用户信息");
+        String header = request.getHeader("Authorization");
+        String token = StringUtils.substringAfter(header, "bearer");
+        Claims claims = Jwts.parser().setSigningKey(securityProperties.getOauth2()
+                .getJwtSigningKey().getBytes("utf-8"))
+                .parseClaimsJws(token).getBody();
+
+        String company = claims.get("company") + "";
+
+        log.info("company = " + company);
 
         return authentication;
     }

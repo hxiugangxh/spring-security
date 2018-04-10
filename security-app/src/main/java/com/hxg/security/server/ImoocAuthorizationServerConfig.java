@@ -95,7 +95,7 @@ public class ImoocAuthorizationServerConfig extends AuthorizationServerConfigure
 						.authorizedGrantTypes("refresh_token", "authorization_code", "password")
 						.accessTokenValiditySeconds(client.getAccessTokenValidateSeconds())
 						.refreshTokenValiditySeconds(2592000)
-						.scopes("all");
+						.scopes("all", "read", "write");
 			}
 		}
 	}
