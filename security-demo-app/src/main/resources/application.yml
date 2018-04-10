@@ -22,13 +22,7 @@ imooc:
       signOutUrl: /demo-logout.html
       signUpUrl: /demo-signUp.html
       signInPage: /demo-signIn.html
+    oauth2.clients[0].clientId: hxg
+    oauth2.clients[0].clientSecret: hxg
 # 乱码处理
 spring.http.encoding.force: true
-
-redis:
-  host: db.test.yipicha.com
-  port: 6379
-  maxIdle: 1000
-  maxTotal: 1000
-  testOnBorrow: true
-  dataBase: 15
