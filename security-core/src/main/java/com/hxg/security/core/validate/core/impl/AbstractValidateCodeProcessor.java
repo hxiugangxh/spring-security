@@ -35,10 +35,12 @@ public abstract class AbstractValidateCodeProcessor<C extends ValidateCode> impl
      * springframework.web.context.request.ServletWebRequest)
      */
     @Override
-    public void create(ServletWebRequest request) throws Exception {
+    public ValidateCode create(ServletWebRequest request) throws Exception {
         C validateCode = generate(request);
-        save(request, validateCode);
+        ValidateCode code = save(request, validateCode);
         send(request, validateCode);
+
+        return code;
     }
 
     /**
@@ -64,9 +66,11 @@ public abstract class AbstractValidateCodeProcessor<C extends ValidateCode> impl
      * @param request
      * @param validateCode
      */
-    private void save(ServletWebRequest request, C validateCode) {
+    private ValidateCode save(ServletWebRequest request, C validateCode) {
         ValidateCode code = new ValidateCode(validateCode.getCode(), validateCode.getExpireTime());
         validateCodeRepository.save(request, code, getValidateCodeType(request));
+
+        return code;
     }
 
     /**

@@ -54,13 +54,13 @@ public class UserController {
         stringRedisTemplate.opsForValue().set("redis", "获取用户信息");
         String header = request.getHeader("Authorization");
         String token = StringUtils.substringAfter(header, "bearer");
-        Claims claims = Jwts.parser().setSigningKey(securityProperties.getOauth2()
-                .getJwtSigningKey().getBytes("utf-8"))
-                .parseClaimsJws(token).getBody();
-
-        String company = claims.get("company") + "";
-
-        log.info("company = " + company);
+//        Claims claims = Jwts.parser().setSigningKey(securityProperties.getOauth2()
+//                .getJwtSigningKey().getBytes("utf-8"))
+//                .parseClaimsJws(token).getBody();
+//
+//        String company = claims.get("company") + "";
+//
+//        log.info("company = " + company);
 
         return authentication;
     }

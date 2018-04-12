@@ -1,6 +1,7 @@
 package com.hxg.security.core.validate.core;
 
 import com.hxg.security.core.properties.SecurityConstants;
+import com.hxg.security.core.simple.SimpleResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,12 +31,14 @@ public class ValidateCodeController {
      * @throws Exception
      */
     @GetMapping(SecurityConstants.DEFAULT_VALIDATE_CODE_URL_PREFIX + "/{type}")
-    public String createCode(HttpServletRequest request, HttpServletResponse response,
-                           @PathVariable String type)
+    public SimpleResponse createCode(HttpServletRequest request, HttpServletResponse response,
+                                     @PathVariable String type)
             throws Exception {
-        validateCodeProcessorHolder.findValidateCodeProcessor(type).create(new ServletWebRequest(request, response));
+        ValidateCode validateCode = validateCodeProcessorHolder.findValidateCodeProcessor(type)
+                .create(new ServletWebRequest
+                (request, response));
 
-        return "test";
+        return new SimpleResponse("验证码: " + validateCode.getCode());
     }
 
 }

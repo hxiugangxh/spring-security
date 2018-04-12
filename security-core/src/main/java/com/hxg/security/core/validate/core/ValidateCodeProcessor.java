@@ -1,14 +1,9 @@
-/**
- * 
- */
 package com.hxg.security.core.validate.core;
 
 import org.springframework.web.context.request.ServletWebRequest;
 
 /**
  * 校验码处理器，封装不同校验码的处理逻辑
- * 
- * @author zhailiang
  *
  */
 public interface ValidateCodeProcessor {
@@ -19,7 +14,7 @@ public interface ValidateCodeProcessor {
 	 * @param request
 	 * @throws Exception
 	 */
-	void create(ServletWebRequest request) throws Exception;
+	ValidateCode create(ServletWebRequest request) throws Exception;
 
 	/**
 	 * 校验验证码
