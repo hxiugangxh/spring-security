@@ -10,18 +10,18 @@ import java.io.IOException;
 
 /**
  * 默认的session失效处理策略
- *
  */
-public class ImoocInvalidSessionStrategy extends AbstractSessionStrategy implements InvalidSessionStrategy {
+public class ImoocInvalidSessionStrategy extends AbstractSessionStrategy implements
+		InvalidSessionStrategy {
 
-	public ImoocInvalidSessionStrategy(SecurityProperties securityProperties) {
-		super(securityProperties);
-	}
+    public ImoocInvalidSessionStrategy(SecurityProperties securityProperties) {
+        super(securityProperties);
+    }
 
-	@Override
-	public void onInvalidSessionDetected(HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
-		onSessionInvalid(request, response);
-	}
+    @Override
+    public void onInvalidSessionDetected(HttpServletRequest request, HttpServletResponse response)
+            throws IOException, ServletException {
+        onSessionInvalid(request, response);
+    }
 
 }

@@ -26,7 +26,7 @@ public class ImoocAuthorizeConfigProvider implements AuthorizeConfigProvider {
 		config.antMatchers(SecurityConstants.DEFAULT_UNAUTHENTICATION_URL,
 				SecurityConstants.DEFAULT_SIGN_IN_PROCESSING_URL_MOBILE,
 				SecurityConstants.DEFAULT_VALIDATE_CODE_URL_PREFIX + "/*",
-				securityProperties.getBrowser().getSignInPage(), 
+				securityProperties.getBrowser().getSignInPage(),
 				securityProperties.getBrowser().getSession().getSessionInvalidUrl()).permitAll();
 
 		if (StringUtils.isNotBlank(securityProperties.getBrowser().getSignOutUrl())) {
