@@ -26,23 +26,7 @@ public class UserController {
     private StringRedisTemplate stringRedisTemplate;
 
     @GetMapping("/me")
-    public Object me(Authentication authentication, HttpServletRequest request) throws Exception {
-
-        log.info("获取用户信息-2");
-        log.info(securityProperties.getOauth2().getJwtSigningKey());
-        stringRedisTemplate.opsForValue().set("redis", "获取用户信息");
-        String header = request.getHeader("Authorization");
-
-        System.out.println(SecurityContextHolder.getContext().getAuthentication());
-
-        String token = StringUtils.substringAfter(header, "bearer");
-//        Claims claims = Jwts.parser().setSigningKey(securityProperties.getOauth2()
-//                .getJwtSigningKey().getBytes("utf-8"))
-//                .parseClaimsJws(token).getBody();
-//
-//        String company = claims.get("company") + "";
-//
-//        log.info("company = " + company);
+    public Object me(Authentication authentication) throws Exception {
 
         return authentication;
     }

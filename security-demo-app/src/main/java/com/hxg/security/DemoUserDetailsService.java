@@ -49,12 +49,17 @@ public class DemoUserDetailsService implements UserDetailsService, SocialUserDet
     private SocialUserDetails buildUser(String userId) {
         // 根据用户名查找用户信息
         //根据查找到的用户信息判断用户是否被冻结
+        // 123456便为从数据库中获取得到的密码，这里就不链接数据库了
         String password = passwordEncoder.encode("123456");
         log.info("数据库密码是:" + password);
 
-        return new SocialUser(userId, password,
+        MyUserDetail myUserDetail = new MyUserDetail(userId, password,
                 true, true, true, true,
                 AuthorityUtils.commaSeparatedStringToAuthorityList("all,ROLE_USER"));
+
+        myUserDetail.setMyDefined("这是我自定义的内容");
+
+        return myUserDetail;
     }
 
 }

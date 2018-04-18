@@ -25,12 +25,6 @@ server:
   port: 8080
 imooc:
   security:
-    browser:
-      signInResponseType: REDIRECT
-      singInSuccessUrl: /manage.html
-      signOutUrl: /demo-logout.html
-      signUpUrl: /demo-signUp.html
-      signInPage: /demo-signIn.html
     oauth2:
       clients[0].clientId: imooc
       clients[0].clientSecret: imoocsecret

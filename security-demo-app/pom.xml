@@ -19,7 +19,7 @@
         <dependency>
             <groupId>com.hxg</groupId>
             <artifactId>security-app</artifactId>
-            <version>${imooc.security.version}</version>
+            <version>0.0.1-SNAPSHOT</version>
         </dependency>
 
         <!--eureka-->
