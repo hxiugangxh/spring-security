@@ -1,14 +1,14 @@
 spring:
   session:
-    store-type: none
+    store-type: REDIS
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://localhost/hxg?useUnicode=yes&characterEncoding=UTF-8&useSSL=false
     username: root
-    password:
+    password: 123456
   redis:
-    host: db.test.yipicha.com
-    database: 15
+    host: localhost
+    database: 1
 #security:
 #  basic:
 #    enabled: false
@@ -24,11 +24,3 @@ imooc:
       signInPage: /demo-signIn.html
 # 乱码处理
 spring.http.encoding.force: true
-
-redis:
-  host: db.test.yipicha.com
-  port: 6379
-  maxIdle: 1000
-  maxTotal: 1000
-  testOnBorrow: true
-  dataBase: 15
