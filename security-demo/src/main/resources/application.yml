@@ -13,6 +13,8 @@ spring:
 #    enabled: false
 server:
   port: 8080
+  session:
+    timeout: 60
 imooc:
   security:
     browser:
