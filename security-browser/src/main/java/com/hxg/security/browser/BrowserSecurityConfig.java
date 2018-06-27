@@ -23,7 +23,6 @@ import javax.sql.DataSource;
 
 /**
  * 浏览器环境下安全配置主类
- *
  */
 @Configuration
 public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
@@ -63,16 +62,15 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
 
         formAuthenticationConfig.configure(http);
 
-        http.apply(validateCodeSecurityConfig)
+        /*http.apply(validateCodeSecurityConfig)
                 .and()
-                .apply(smsCodeAuthenticationSecurityConfig)
+                apply(smsCodeAuthenticationSecurityConfig)
                 .and()
                 //记住我配置，如果想在'记住我'登录时记录日志，可以注册一个InteractiveAuthenticationSuccessEvent事件的监听器
                 .rememberMe()
                 .tokenRepository(persistentTokenRepository())
-                .tokenValiditySeconds(securityProperties.getBrowser().getRememberMeSeconds())
-                .userDetailsService(userDetailsService)
-                .and()
+                .tokenValiditySeconds(securityProperties.getBrowser().getRememberMeSeconds())*/
+        http.userDetailsService(userDetailsService)
                 .sessionManagement()
                 .invalidSessionStrategy(invalidSessionStrategy)
                 .maximumSessions(securityProperties.getBrowser().getSession().getMaximumSessions())

@@ -18,7 +18,6 @@ import java.io.IOException;
 
 /**
  * 抽象的session失效处理器
- *
  */
 public class AbstractSessionStrategy {
 
@@ -47,12 +46,11 @@ public class AbstractSessionStrategy {
      * @param invalidSessionHtmlUrl
      */
     public AbstractSessionStrategy(SecurityProperties securityPropertie) {
-        String invalidSessionUrl = securityPropertie.getBrowser().getSession()
-				.getSessionInvalidUrl();
+        String invalidSessionUrl = securityPropertie.getBrowser().getSession().getSessionInvalidUrl();
         Assert.isTrue(UrlUtils.isValidRedirectUrl(invalidSessionUrl), "url must start with '/' or" +
-				" with 'http(s)'");
+                " with 'http(s)'");
         Assert.isTrue(StringUtils.endsWithIgnoreCase(invalidSessionUrl, ".html"), "url must end " +
-				"with '.html'");
+                "with '.html'");
         this.destinationUrl = invalidSessionUrl;
         this.securityPropertie = securityPropertie;
     }
@@ -65,7 +63,7 @@ public class AbstractSessionStrategy {
      * javax.servlet.http.HttpServletResponse)
      */
     protected void onSessionInvalid(HttpServletRequest request, HttpServletResponse response)
-			throws IOException {
+            throws IOException {
 
         logger.info("session失效");
 
@@ -78,8 +76,7 @@ public class AbstractSessionStrategy {
 
         if (StringUtils.endsWithIgnoreCase(sourceUrl, ".html")) {
             if (StringUtils.equals(sourceUrl, securityPropertie.getBrowser().getSignInPage())
-                    || StringUtils.equals(sourceUrl, securityPropertie.getBrowser().getSignOutUrl
-					())) {
+                    || StringUtils.equals(sourceUrl, securityPropertie.getBrowser().getSignOutUrl())) {
                 targetUrl = sourceUrl;
             } else {
                 targetUrl = destinationUrl;
