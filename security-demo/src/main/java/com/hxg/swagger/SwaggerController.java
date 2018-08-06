@@ -15,7 +15,7 @@ public class SwaggerController {
     @GetMapping("/{id:\\d+}")
     @ResponseBody
     @ApiOperation(value = "方法描述信息")
-    public SwaggerBean swaggerBean(@RequestParam(value = "id", required = true) Integer id) {
+    public SwaggerBean swaggerBean(@PathVariable(value = "id", required = true) Integer id) {
 
         SwaggerBean swaggerBean = new SwaggerBean();
 

@@ -1,5 +1,7 @@
 package com.hxg.controller;
 
+import com.hxg.base.RestResult;
+import com.hxg.base.ResultUtil;
 import com.hxg.security.core.properties.SecurityProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
@@ -12,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/user")
@@ -26,9 +30,18 @@ public class UserController {
     private StringRedisTemplate stringRedisTemplate;
 
     @GetMapping("/me")
-    public Object me(Authentication authentication) throws Exception {
+    public RestResult<Authentication> me(Authentication authentication) throws Exception {
 
-        return authentication;
+        return ResultUtil.success(authentication);
+    }
+
+    @GetMapping("/info")
+    public Map<String, Object> info(Authentication authentication) throws Exception {
+
+        Map<String, Object> map = new HashMap<>();
+
+        map.put("userName", authentication.getName());
+        return map;
     }
 
 }
