@@ -9,8 +9,9 @@ spring:
   redis:
     host: localhost
     database: 2
+    password: 123456
 server:
-  port: 8080
+  port: 8079
 imooc:
   security:
     oauth2:

@@ -19,7 +19,7 @@ public class FormAuthenticationConfig {
 	
 	@Autowired
 	protected AuthenticationFailureHandler imoocAuthenticationFailureHandler;
-	
+
 	public void configure(HttpSecurity http) throws Exception {
 		http.formLogin()
 			.loginPage(SecurityConstants.DEFAULT_UNAUTHENTICATION_URL)
